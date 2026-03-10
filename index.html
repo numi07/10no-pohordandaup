@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="bn" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ঠাকুর আবুল আজম - ভোটার তথ্য অনুসন্ধান সিস্টেম</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap');
+        
+        body { 
+            font-family: 'Noto Sans Bengali', sans-serif; 
+        }
+        
+        .site-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main { flex: 1 0 auto; }
+        footer { flex-shrink: 0; }
+        
+        .ward-badge {
+            background-color: #f0fdf4;
+            color: #166534;
+            padding: 2px 10px;
+            border-radius: 6px;
+            font-weight: 800;
+            border: 1px solid #bbf7d0;
+            font-size: 14px;
+        }
+
+        .header-container {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                grid-template-columns: 1fr auto;
+            }
+            .system-title {
+                grid-row: 1;
+                grid-column: 1 / span 2;
+                order: -1;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+
+<div class="site-wrapper">
+    <header class="bg-[#2e7d32] text-white p-1 shadow-lg sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto header-container">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-white overflow-hidden bg-white">
+                    <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover">
+                </div>
+                <div class="leading-tight">
+                    <h1 class="font-bold text-lg md:text-xl">ঠাকুর আবুল আজম</h1>
+                    <div class="flex items-center gap-1.5 mt-0.5">
+                        <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-9 h-9 object-contain bg-white rounded-full p-0.1">
+                        <p class="text-[10px] md:text-xs opacity-90 font-semibold">প্রতীক: ধানের শীষ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="system-title text-center">
+                <p class="text-sm md:text-xl font-extrabold tracking-wider bg-black/10 py-1.5 px-4 rounded-full inline-block">
+                    ভোটার তথ্য অনুসন্ধান সিস্টেম
+                </p>
+            </div>
+
+            <div class="flex justify-end">
+                <button onclick="document.documentElement.classList.toggle('dark')" class="p-2 rounded-full bg-green-900/30 hover:bg-green-800 transition">
+                    <span class="dark:hidden text-sm">🌙</span>
+                    <span class="hidden dark:inline text-sm">☀️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto w-full p-4">
+        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-green-100 dark:border-gray-700 grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+            <div class="md:col-span-3">
+                <select id="wardFilter" onchange="searchVoter()" class="w-full p-3 border rounded-xl dark:bg-gray-700 dark:text-white outline-none focus:ring-2 focus:ring-green-500 font-bold">
+                    <option value="">সকল ওয়ার্ড (১-৯)</option>
+                    <option value="1">ওয়ার্ড ০১</option>
+                    <option value="2">ওয়ার্ড ০২</option>
+                    <option value="3">ওয়ার্ড ০৩</option>
+                    <option value="4">ওয়ার্ড ০৪</option>
+                    <option value="5">ওয়ার্ড ০৫</option>
+                    <option value="6">ওয়ার্ড ০৬</option>
+                    <option value="7">ওয়ার্ড ০৭</option>
+                    <option value="8">ওয়ার্ড ০৮</option>
+                    <option value="9">ওয়ার্ড ০৯</option>
+                </select>
+            </div>
+            <div class="md:col-span-7">
+                <input type="text" id="searchInput" oninput="searchVoter()" placeholder="নাম, পিতা/স্বামী বা মাতার নাম লিখুন..." class="w-full p-3 border rounded-xl dark:bg-gray-700 dark:text-white outline-none focus:ring-2 focus:ring-green-500">
+            </div>
+            <div class="md:col-span-2">
+                <button onclick="searchVoter()" class="w-full bg-[#2e7d32] text-white p-3 rounded-xl font-bold hover:bg-green-700 shadow-md">অনুসন্ধান</button>
+            </div>
+        </div>
+
+        <div id="loader" class="hidden mt-6 text-center">
+            <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-green-600 border-t-transparent"></div>
+            <p class="text-green-700 font-bold mt-2">তথ্য খোঁজা হচ্ছে...</p>
+        </div>
+
+        <div id="stats" class="mt-4 px-2 text-sm text-gray-500 dark:text-gray-400 font-semibold italic"></div>
+        <div id="voterResults" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 mb-10"></div>
+    </main>
+
+    <footer class="bg-white dark:bg-gray-800 border-t dark:border-gray-700 p-1">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-green-50 rounded-full p-0.1 border border-green-100">
+                    <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-full h-full object-contain">
+                </div>
+                <div>
+                    <p class="font-bold text-green-800 dark:text-green-400 leading-tight">ঠাকুর আবুল আজম</p>
+                    <p class="text-xs text-gray-500 font-semibold">প্রতীক: ধানের শীষ</p>
+                </div>
+            </div>
+            <div class="text-[11px] text-gray-400 leading-relaxed">
+                <p>ডিজাইন ও ডেভেলপমেন্ট: <b class="text-gray-600 dark:text-gray-300">আল নোমান শিকদার</b></p>
+                <p>© ২০২৬ সর্বস্বত্ব সংরক্ষিত</p>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<div id="detailModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-2xl max-w-md w-full shadow-2xl">
+        <h2 class="font-bold text-xl text-green-800 dark:text-green-400 mb-4 border-b pb-2">বিস্তারিত তথ্য</h2>
+        <div id="modalContent" class="space-y-3 text-sm dark:text-gray-300"></div>
+        <button onclick="closeModal()" class="mt-6 w-full bg-red-600 text-white p-3 rounded-xl font-bold">বন্ধ করুন</button>
+    </div>
+</div>
+
+<script>
+    const wardSheets = {
+        "1": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=0&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=5047340&single=true&output=csv"],
+        "2": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1603235938&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=253713252&single=true&output=csv"],
+        "3": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1802460558&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1477496566&single=true&output=csv"],
+        "4": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=210840735&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1072213615&single=true&output=csv"],
+        "5": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=804474196&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=578944965&single=true&output=csv"],
+        "6": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=415847962&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1285934073&single=true&output=csv"],
+        "7": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=826694310&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=412030752&single=true&output=csv"],
+        "8": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=2060395915&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1575712484&single=true&output=csv"],
+        "9": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=2064944158&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1194678736&single=true&output=csv"]
+    };
+
+    function normalizeBN(text) {
+        if (!text) return "";
+        return text.toString().toLowerCase()
+            .replace(/[শষ]/g, 'স')
+            .replace(/[ীি]/g, 'ি')
+            .replace(/[ঈই]/g, 'ই')
+            .replace(/[ণন]/g, 'ন')
+            .replace(/[যজ]/g, 'জ')
+            .replace(/়/g, '')
+            .replace(/\s+/g, '')
+            .trim();
+    }
+
+    function bnToEn(str) {
+        if(!str) return "";
+        const bnNums = {'১':'1', '২':'2', '৩':'3', '৪':'4', '৫':'5', '৬':'6', '৭':'7', '৮':'8', '৯':'9', '০':'0'};
+        return String(str).replace(/[১২৩৪৫৬৭৮৯০]/g, s => bnNums[s]).trim();
+    }
+
+    function getCenterName(wardVal) {
+        const ward = parseInt(bnToEn(wardVal));
+        if (ward === 1 || ward === 3) return "পাখিমারা";
+        if (ward === 2) return "বল্লাহাটি";
+        if (ward >= 4 && ward <= 6) return "পহরডাঙ্গা";
+        if (ward >= 7 && ward <= 9) return "বাগুডাঙ্গা";
+        return "অজানা কেন্দ্র";
+    }
+
+    function getAnyValue(obj, possibleKeys) {
+        for (let key in obj) {
+            let cleanKey = key.trim();
+            if (possibleKeys.includes(cleanKey)) return obj[key];
+        }
+        return "-";
+    }
+
+    async function searchVoter() {
+        const inputVal = document.getElementById('searchInput').value;
+        const rawKey = inputVal.trim();
+        const key = normalizeBN(rawKey);
+        const selectedWard = document.getElementById('wardFilter').value;
+        const container = document.getElementById('voterResults');
+        const loader = document.getElementById('loader');
+        const stats = document.getElementById('stats');
+
+        if (rawKey.length === 0) {
+            container.innerHTML = "";
+            stats.innerText = "";
+            loader.classList.add('hidden');
+            return;
+        }
+
+        loader.classList.remove('hidden');
+        let urls = selectedWard ? wardSheets[selectedWard] : Object.values(wardSheets).flat();
+
+        try {
+            const promises = urls.map(url => {
+                return new Promise((resolve) => {
+                    Papa.parse(url, {
+                        download: true, header: true, skipEmptyLines: true,
+                        complete: (res) => resolve(res.data),
+                        error: () => resolve([])
+                    });
+                });
+            });
+
+            const allDataResults = await Promise.all(promises);
+            const combinedData = allDataResults.flat();
+
+            const filtered = combinedData.filter(v => {
+                const vName = normalizeBN(getAnyValue(v, ["ভোটার নাম", "নাম", "Name"]));
+                const vGuardian = normalizeBN(getAnyValue(v, ["পিতা বা স্বামীর নাম", "পিতা/স্বামীর নাম", "Guardian"]));
+                const vMother = normalizeBN(getAnyValue(v, ["মাতার নাম", "Mother Name", "মাতা"]));
+                return vName.includes(key) || vGuardian.includes(key) || vMother.includes(key);
+            });
+
+            loader.classList.add('hidden');
+
+            if (document.getElementById('searchInput').value.trim().length === 0) {
+                container.innerHTML = "";
+                stats.innerText = "";
+                return;
+            }
+
+            stats.innerText = `মোট ফলাফল: ${filtered.length} জন`;
+            container.innerHTML = "";
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10 font-bold">কোন তথ্য পাওয়া যায়নি।</p>`;
+                return;
+            }
+
+            filtered.forEach(v => {
+                const wardNo = getAnyValue(v, ["ওয়ার্ড নাম্বার", "ওয়ার্ড", "ওয়ার্ড", "Ward"]);
+                const motherName = getAnyValue(v, ["মাতার নাম", "Mother Name", "মাতা"]);
+                const dob = getAnyValue(v, ["জন্ম তারিখ", "জন্মতারিখ", "Date of Birth", "DOB"]);
+                const rel = (v["সম্পর্ক"] === "স্বামী") ? "স্বামীর নাম" : "পিতার নাম";
+                
+                container.innerHTML += `
+                    <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border-l-4 border-[#2e7d32] dark:border-green-500 hover:shadow-md transition-all duration-300">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[10px] bg-green-50 text-green-700 px-2 py-1 rounded font-bold border border-green-100">ক্রমিক: ${getAnyValue(v, ["ভোটার ক্রমিক নং", "SL"])}</span>
+                            <span class="ward-badge">ওয়ার্ড: ${wardNo}</span>
+                        </div>
+                        <h3 class="font-bold text-lg dark:text-white mb-1">${getAnyValue(v, ["ভোটার নাম", "নাম"])}</h3>
+                        <div class="text-sm space-y-1 text-gray-600 dark:text-gray-400 font-semibold">
+                            <p><b>${rel}:</b> ${getAnyValue(v, ["পিতা বা স্বামীর নাম", "পিতা/স্বামীর নাম"])}</p>
+                            <p><b>মাতার নাম:</b> ${motherName}</p>
+                            <p><b>জন্ম তারিখ:</b> ${dob}</p>
+                            <p><b>কেন্দ্র:</b> <span class="text-green-700 dark:text-green-400 font-bold">${getCenterName(wardNo)}</span></p>
+                        </div>
+                        <button onclick='showDetails(${JSON.stringify(v).replace(/'/g, "&apos;")})' class="mt-4 w-full text-sm font-bold text-[#2e7d32] dark:text-green-400 border border-green-200 dark:border-gray-700 py-2 rounded-lg hover:bg-green-50 dark:hover:bg-gray-700 transition">বিস্তারিত দেখুন ....</button>
+                    </div>`;
+            });
+        } catch (err) {
+            loader.classList.add('hidden');
+        }
+    }
+
+    function showDetails(v) {
+        const wardNo = getAnyValue(v, ["ওয়ার্ড নাম্বার", "ওয়ার্ড", "ওয়ার্ড", "Ward"]);
+        const motherName = getAnyValue(v, ["মাতার নাম", "Mother Name", "মাতা"]);
+        const dob = getAnyValue(v, ["জন্ম তারিখ", "জন্মতারিখ", "Date of Birth", "DOB"]);
+        const rel = (v["সম্পর্ক"] === "স্বামী") ? "স্বামীর নাম" : "পিতার নাম";
+        
+        document.getElementById('modalContent').innerHTML = `
+            <div class="grid grid-cols-2 gap-y-3 font-semibold">
+                <p><b>ক্রমিক নং:</b></p><p>${getAnyValue(v, ["ভোটার ক্রমিক নং", "SL"])}</p>
+                <p><b>কেন্দ্র:</b></p><p class="text-green-700 font-bold">${getCenterName(wardNo)}</p>
+                <p><b>ভোটার আইডি:</b></p><p>${getAnyValue(v, ["ভোটার আইডি নং", "ভোটার নং", "Voter ID"])}</p>
+                <p><b>নাম:</b></p><p>${getAnyValue(v, ["ভোটার নাম", "নাম"])}</p>
+                <p><b>${rel}:</b></p><p>${getAnyValue(v, ["পিতা বা স্বামীর নাম", "পিতা/স্বামীর নাম"])}</p>
+                <p><b>মাতার নাম:</b></p><p>${motherName}</p>
+                <p><b>জন্ম তারিখ:</b></p><p>${dob}</p>
+                <p><b>ওয়ার্ড:</b></p><p class="font-bold text-green-700">${wardNo}</p>
+                <p class="col-span-2 border-t pt-2"><b>ঠিকানা:</b> ${getAnyValue(v, ["ঠিকানা"])}</p>
+            </div>`;
+        document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function closeModal() { document.getElementById('detailModal').classList.add('hidden'); }
+</script> 
+</body>
+</html>
