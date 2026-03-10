@@ -182,10 +182,10 @@
 
     function getCenterName(wardVal) {
         const ward = parseInt(bnToEn(wardVal));
-        if (ward === 1 || ward === 3) return "পাখিমারা";
-        if (ward === 2) return "বল্লাহাটি";
-        if (ward >= 4 && ward <= 6) return "পহরডাঙ্গা";
-        if (ward >= 7 && ward <= 9) return "বাগুডাঙ্গা";
+        if (ward === 1 || ward === 3) return "পাখিমারা সরকারি প্রাথমিক বিদ্যালয়";
+        if (ward === 2) return "বল্লাহাটি সরকারি প্রাথমিক বিদ্যালয়";
+        if (ward >= 4 && ward <= 6) return "পহরডাঙ্গা সরকারি প্রাথমিক বিদ্যালয়";
+        if (ward >= 7 && ward <= 9) return "বাগুডাঙ্গা সরকারি প্রাথমিক বিদ্যালয়";
         return "অজানা কেন্দ্র";
     }
 
@@ -304,4 +304,5 @@
     function closeModal() { document.getElementById('detailModal').classList.add('hidden'); }
 </script> 
 </body>
+
 </html>
