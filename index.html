@@ -17,7 +17,6 @@
       }
     </script>
     <style>
-        /* ফুটার নিচে রাখার জন্য ফ্লেক্সবক্স সেটআপ */
         html, body { height: 100%; margin: 0; }
         body { 
             font-family: 'Hind Siliguri', sans-serif; 
@@ -26,13 +25,11 @@
             flex-direction: column; 
         }
         
-        /* কন্টেন্ট অংশটি বাকি জায়গা দখল করবে */
         .content-wrapper { 
             flex: 1 0 auto; 
             padding-top: 80px; 
         }
 
-        /* ফিক্সড হেডার */
         .fixed-header {
             position: fixed;
             top: 0;
@@ -43,6 +40,17 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
+        /* মোবাইল মেনু ট্রানজিশন */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.active {
+            max-height: 500px;
+            padding: 1rem 0;
+        }
+
         .hero-section { 
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1679029524057-7065d479da5c?fm=jpg&q=60&w=3000'); 
             background-size: cover; 
@@ -50,7 +58,6 @@
         }
 
         .info-bar-bg { background-color: #009e49; color: white; border-radius: 12px; }
-        .glass-item { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; }
         
         .principle-card { transition: all 0.3s ease; border-bottom: 4px solid transparent; }
         .principle-card:hover { 
@@ -74,6 +81,13 @@
                     <p class="text-[10px] font-bold text-red-600 uppercase">১০নং পহরডাঙ্গা ইউনিয়ন</p>
                 </div>
             </div>
+
+            <button id="menu-btn" class="md:hidden text-brand-dark focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+
             <nav class="hidden md:flex gap-4 items-center">
                 <a href="#home" class="bg-brand-green text-white px-4 py-1.5 rounded-lg text-sm font-bold">হোম</a>
                 <a href="#manifesto" class="text-gray-700 text-sm font-bold hover:text-brand-green">ইশতেহার</a>
@@ -85,6 +99,17 @@
                 <a href="#contact" class="text-gray-700 text-sm font-bold hover:text-brand-green">যোগাযোগ</a>
             </nav>
         </div>
+
+        <nav id="mobile-menu" class="md:hidden bg-white border-t border-gray-100 flex flex-col items-center gap-4">
+            <a href="#home" class="text-brand-green font-bold py-2">হোম</a>
+            <a href="#manifesto" class="text-gray-700 font-bold py-2">ইশতেহার</a>
+            <a href="#about" class="text-gray-700 font-bold py-2">প্রার্থী সম্পর্কে</a>
+            <a href="#events" class="text-gray-700 font-bold py-2">কর্মসূচি</a>
+            <a href="#gallery" class="text-gray-700 font-bold py-2">গ্যালারি</a>
+            <a href="#news" class="text-gray-700 font-bold py-2">সংবাদ</a>
+            <a href="voterslip.html" class="text-gray-700 font-bold py-2">ভোটার স্লিপ</a>
+            <a href="#contact" class="text-gray-700 font-bold py-2">যোগাযোগ</a>
+        </nav>
     </header>
 
     <div class="content-wrapper" id="home">
@@ -209,6 +234,22 @@
     </footer>
 
     <script>
+        // মোবাইল মেনু টগল লজিক
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // মেনুর কোনো লিংকে ক্লিক করলে মেনু অটো বন্ধ হবে
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
         const toBn = n => n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]);
         function updateClock() {
             const now = new Date();
