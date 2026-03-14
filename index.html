@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ভোটার তথ্য - পহরডাঙ্গা ইউনিয়ন</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { font-family: 'Noto Sans Bengali', sans-serif; background-color: #0f4c3a; }
+        body { font-family: 'Noto Serif Bengali', sans-serif; background-color: #0f4c3a; user-select: none; }
         .main-container { background: linear-gradient(180deg, #0f4c3a 0%, #166534 100%); min-height: 100vh; }
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 20px; }
         .input-style { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 15px; width: 100%; outline: none; transition: all 0.3s; }
@@ -17,8 +17,22 @@
         .btn-search:hover { background-color: #047857; }
         @media print { .no-print { display: none; } body { background: white; } }
     </style>
+    
+    <script>
+        // Right-click block
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // Keyboard shortcuts block (F12, Ctrl+Shift+I, Ctrl+U etc.)
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123) return false; // F12
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Inspect
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Elements
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Console
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // View Source
+        };
+    </script>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="main-container pb-10">
         <nav class="bg-white/10 backdrop-blur-md py-3 mb-6 no-print">
@@ -39,7 +53,7 @@
                 <div class="bg-[#052e21] rounded-3xl p-6 mb-8 flex flex-col md:flex-row items-center justify-between border border-white/20 shadow-2xl">
                     <div class="flex items-center gap-4">
                         <div class="w-24 h-24 bg-slate-200 rounded-full border-4 border-green-500 overflow-hidden">
-                             <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='<div class=\'flex items-center justify-center h-full text-slate-400\'>ছবি</div>'">
+                             <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='ছবি'">
                         </div>
                         <div class="text-white">
                             <h2 class="text-xl font-bold">চলো একসাথে ১০নং পহরডাঙ্গা ইউনিয়ন-কে গড়ি</h2>
@@ -48,7 +62,7 @@
                         </div>
                     </div>
                     <div class="mt-4 md:mt-0 bg-white/10 p-4 rounded-2xl text-center border border-white/10">
-                        <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-12 h-12 mx-auto mb-1 object-contain" onerror="this.parentElement.innerHTML='<div class=\'bg-green-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-1 font-bold text-xl\'>শীষ</div>'">
+                        <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-12 h-12 mx-auto mb-1 object-contain" onerror="this.parentElement.innerHTML='শীষ'">
                     </div>
                 </div>
 
@@ -149,7 +163,10 @@
     </div>
 
     <script>
-        const SHEET_URLS = {
+        /* Javascript is kept simple for functionality. 
+           To fully Obfuscate, use a tool like javascriptobfuscator.com 
+        */
+        const _0xUrl = {
             "1": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=0&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=5047340&single=true&output=csv"],
             "2": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1603235938&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=253713252&single=true&output=csv"],
             "3": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1802460558&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1477496566&single=true&output=csv"],
@@ -161,32 +178,13 @@
             "9": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=2064944158&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1194678736&single=true&output=csv"]
         };
 
-        document.getElementById('searchInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') searchVoter();
-        });
-
         function normalize(t) {
             return t ? t.toString().toLowerCase().replace(/[সষশ]/g,'স').replace(/[নণ]/g,'ন').replace(/[িী]/g,'ি').replace(/[ুূ]/g,'ু').replace(/\s+/g,'') : "";
         }
 
-        function clearInputs() {
-            document.getElementById('searchInput').value = "";
-            document.getElementById('dobInput').value = "";
-            document.getElementById('wardFilter').value = "all";
-        }
-
-        function getCenter(wRaw) {
-            const w = parseInt(wRaw.toString().replace(/[১-৯]/g, d => "১২৩৪৫৬৭৮৯".indexOf(d)+1).replace(/\D/g,''));
-            if(w==1||w==3) return "পাখিমারা সরকারী প্রাথমিক বিদ্যালয়";
-            if(w==2) return "বল্লাহাটি সরকারি প্রাথমিক বিদ্যালয়";
-            if(w>=4&&w<=6) return "পহরডাঙ্গা সরকারী প্রাথমিক বিদ্যালয়";
-            if(w>=7&&w<=9) return "বাগুডাঙ্গা সরকারি প্রাথমিক বিদ্যালয়";
-            return "কেন্দ্র নির্ধারিত হয়নি";
-        }
-
-        async function fetchCSV(url) {
+        async function fetchCSV(u) {
             try {
-                const res = await fetch(url);
+                const res = await fetch(u);
                 const txt = await res.text();
                 const rows = txt.split(/\r?\n/).filter(r => r.trim()).slice(1);
                 return rows.map(r => {
@@ -204,10 +202,10 @@
             document.getElementById('loader').classList.remove('hidden');
             document.getElementById('btnText').innerText = "খোঁজা হচ্ছে...";
 
-            let urls = (ward === 'all') ? Object.values(SHEET_URLS).flat() : SHEET_URLS[ward];
+            let targetUrls = (ward === 'all') ? Object.values(_0xUrl).flat() : _0xUrl[ward];
             
             try {
-                const results = await Promise.all(urls.map(u => fetchCSV(u)));
+                const results = await Promise.all(targetUrls.map(u => fetchCSV(u)));
                 const allData = results.flat();
                 const q = normalize(input);
 
@@ -225,6 +223,15 @@
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('btnText').innerText = "🔍 অনুসন্ধান";
             }
+        }
+
+        function getCenter(wRaw) {
+            const w = parseInt(wRaw.toString().replace(/[১-৯]/g, d => "১২৩৪৫৬৭৮৯".indexOf(d)+1).replace(/\D/g,''));
+            if(w==1||w==3) return "পাখিমারা সরকারী প্রাথমিক বিদ্যালয়";
+            if(w==2) return "বল্লাহাটি সরকারি প্রাথমিক বিদ্যালয়";
+            if(w>=4&&w<=6) return "পহরডাঙ্গা সরকারী প্রাথমিক বিদ্যালয়";
+            if(w>=7&&w<=9) return "বাগুডাঙ্গা সরকারি প্রাথমিক বিদ্যালয়";
+            return "কেন্দ্র নির্ধারিত হয়নি";
         }
 
         function renderResults(data) {
@@ -275,15 +282,13 @@
         function showPage(p) {
             document.querySelectorAll('.page-state').forEach(div => div.classList.add('hidden'));
             document.getElementById(p).classList.remove('hidden');
-            
-            
-            if(p === 'searchPage') {
-                document.getElementById('searchInput').value = "";
-                document.getElementById('dobInput').value = "";
-                document.getElementById('wardFilter').value = "all";
-            }
-            
             window.scrollTo(0,0);
+        }
+
+        function clearInputs() {
+            document.getElementById('searchInput').value = "";
+            document.getElementById('dobInput').value = "";
+            document.getElementById('wardFilter').value = "all";
         }
 
         function downloadSlip() {
