@@ -19,16 +19,13 @@
     </style>
     
     <script>
-        // Right-click block
         document.addEventListener('contextmenu', event => event.preventDefault());
-
-        // Keyboard shortcuts block (F12, Ctrl+Shift+I, Ctrl+U etc.)
         document.onkeydown = function(e) {
-            if (e.keyCode == 123) return false; // F12
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Inspect
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Elements
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Console
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // View Source
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
+            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
         };
     </script>
 </head>
@@ -53,7 +50,7 @@
                 <div class="bg-[#052e21] rounded-3xl p-6 mb-8 flex flex-col md:flex-row items-center justify-between border border-white/20 shadow-2xl">
                     <div class="flex items-center gap-4">
                         <div class="w-24 h-24 bg-slate-200 rounded-full border-4 border-green-500 overflow-hidden">
-                             <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover" onerror="this.parentElement.innerHTML='ছবি'">
+                             <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover">
                         </div>
                         <div class="text-white">
                             <h2 class="text-xl font-bold">চলো একসাথে ১০নং পহরডাঙ্গা ইউনিয়ন-কে গড়ি</h2>
@@ -62,7 +59,7 @@
                         </div>
                     </div>
                     <div class="mt-4 md:mt-0 bg-white/10 p-4 rounded-2xl text-center border border-white/10">
-                        <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-12 h-12 mx-auto mb-1 object-contain" onerror="this.parentElement.innerHTML='শীষ'">
+                        <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-12 h-12 mx-auto mb-1 object-contain">
                     </div>
                 </div>
 
@@ -163,9 +160,6 @@
     </div>
 
     <script>
-        /* Javascript is kept simple for functionality. 
-           To fully Obfuscate, use a tool like javascriptobfuscator.com 
-        */
         const _0xUrl = {
             "1": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=0&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=5047340&single=true&output=csv"],
             "2": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1603235938&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=253713252&single=true&output=csv"],
@@ -279,10 +273,24 @@
             showPage('resultsPage');
         }
 
+        // Updated showPage function to clear data when going back to search
         function showPage(p) {
             document.querySelectorAll('.page-state').forEach(div => div.classList.add('hidden'));
             document.getElementById(p).classList.remove('hidden');
+            
+            // যদি ইউজার মেইন সার্চ পেজে ফিরে আসে, তবে আগের রেজাল্ট ও ইনপুট মুছে যাবে
+            if (p === 'searchPage') {
+                clearResults();
+                clearInputs();
+            }
             window.scrollTo(0,0);
+        }
+
+        function clearResults() {
+            const list = document.getElementById('resultsList');
+            if (list) list.innerHTML = "";
+            const count = document.getElementById('resultCount');
+            if (count) count.innerText = "";
         }
 
         function clearInputs() {
