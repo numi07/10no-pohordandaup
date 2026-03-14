@@ -11,148 +11,141 @@
         body { font-family: 'Noto Serif Bengali', sans-serif; background-color: #0f4c3a; user-select: none; }
         .main-container { background: linear-gradient(180deg, #0f4c3a 0%, #166534 100%); min-height: 100vh; }
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 20px; }
-        .input-style { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 15px; width: 100%; outline: none; transition: all 0.3s; }
-        .input-style:focus { border-color: #10b981; ring: 2px solid #10b981; }
+        .input-style { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 15px; width: 100%; outline: none; transition: all 0.3s; font-size: 14px; }
+        .input-style:focus { border-color: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2); }
         .btn-search { background-color: #059669; color: white; border-radius: 10px; padding: 12px; font-weight: bold; transition: 0.3s; width: 100%; }
-        .btn-search:hover { background-color: #047857; }
+        
+        .gender-badge { 
+            width: 55px; height: 55px; border-radius: 50%; border: 2px solid #e2e8f0; 
+            display: flex; align-items: center; justify-content: center; 
+            position: relative; transition: all 0.4s ease; background: white;
+        }
+        .gender-badge:hover { transform: scale(1.1); border-color: #10b981; }
+        .check-mark { 
+            background: #10b981; color: white; border-radius: 50%; width: 18px; height: 18px; 
+            display: flex; align-items: center; justify-content: center; font-size: 9px; 
+            position: absolute; bottom: -2px; right: -2px; border: 2px solid white; 
+        }
         @media print { .no-print { display: none; } body { background: white; } }
     </style>
-    
-    <script>
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
-            if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-        };
-    </script>
 </head>
 <body oncontextmenu="return false;">
 
     <div class="main-container pb-10">
-        <nav class="bg-white/10 backdrop-blur-md py-3 mb-6 no-print">
+        <nav class="bg-white/10 backdrop-blur-md py-3 mb-6 no-print border-b border-white/10">
             <div class="container mx-auto px-4 flex justify-between items-center text-white">
                 <div class="flex items-center gap-2">
-                    <div class="bg-white p-1 rounded-full"><img src="https://lh3.googleusercontent.com/d/1hPr82hHJpvAAzaEqbuQxi9X5WW3IieM4" width="30"></div>
-                    <span class="font-bold">১০নং পহরডাঙ্গা ইউনিয়ন</span>
+                    <div class="bg-white p-1 rounded-full"><img src="https://lh3.googleusercontent.com/d/1hPr82hHJpvAAzaEqbuQxi9X5WW3IieM4" width="25"></div>
+                    <span class="font-bold text-sm md:text-base">১০নং পহরডাঙ্গা ইউনিয়ন</span>
                 </div>
                 <div class="flex gap-4 text-sm">
                     <button class="hover:underline" onclick="showPage('searchPage')">সন্ধান করুন</button>
-                    <button class="hover:underline"><a href="https://thakurabulazam.vercel.app/">হোম</a></button>
+                    <button class="hover:underline"><a href="index.html">হোম</a></button>
                 </div>
             </div>
         </nav>
 
         <main class="container mx-auto px-4">
-            <div id="searchPage" class="page-state max-w-4xl mx-auto">
-                <div class="bg-[#052e21] rounded-3xl p-6 mb-8 flex flex-col md:flex-row items-center justify-between border border-white/20 shadow-2xl">
+            <div id="searchPage" class="page-state max-w-5xl mx-auto">
+                <div class="bg-[#052e21] rounded-3xl p-5 mb-8 flex flex-col md:flex-row items-center justify-between border border-white/20 shadow-2xl">
                     <div class="flex items-center gap-4">
-                        <div class="w-24 h-24 bg-slate-200 rounded-full border-4 border-green-500 overflow-hidden">
-                             <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover">
+                        <div class="w-20 h-20 bg-slate-200 rounded-full border-4 border-green-500 overflow-hidden">
+                             <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover" crossorigin="anonymous">
                         </div>
-                        <div class="text-white">
-                            <h2 class="text-xl font-bold">চলো একসাথে ১০নং পহরডাঙ্গা ইউনিয়ন-কে গড়ি</h2>
+                        <div class="text-white text-center md:text-left">
+                            <h2 class="text-lg font-bold">চলো একসাথে ইউনিয়ন গড়ি</h2>
                             <h1 class="text-2xl font-black text-green-400">ঠাকুর আবুল আজম</h1>
-                            <p class="text-sm opacity-80 italic">ধানের শীষ মার্কায় ভোট দিন</p>
                         </div>
                     </div>
-                    <div class="mt-4 md:mt-0 bg-white/10 p-4 rounded-2xl text-center border border-white/10">
-                        <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-12 h-12 mx-auto mb-1 object-contain">
+                    <div class="mt-4 md:mt-0 bg-white/10 p-3 rounded-2xl border border-white/10">
+                        <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" alt="Symbol" class="w-10 h-10 object-contain" crossorigin="anonymous">
                     </div>
                 </div>
 
                 <div class="text-center text-white mb-8">
-                    <h2 class="text-3xl font-bold mb-2">ভোটার তথ্য অনুসন্ধান</h2>
-                    <p class="opacity-70">পহরডাঙ্গা ১০নং ইউনিয়ন - স্মার্ট ভোটার সেবা</p>
+                    <h2 class="text-2xl md:text-3xl font-bold mb-1">ভোটার তথ্য অনুসন্ধান</h2>
+                    <p class="opacity-70 text-sm">পহরডাঙ্গা ১০নং ইউনিয়ন - স্মার্ট সেবা</p>
                 </div>
 
-                <div class="glass-card p-6 md:p-8 shadow-2xl">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <input type="text" id="searchInput" placeholder="নাম, পিতা বা মাতার নাম" class="input-style">
-                        <input type="text" id="dobInput" placeholder="জন্ম তারিখ (দিন/মাস/বছর)" class="input-style">
-                        <select id="unionFilter" class="input-style bg-white">
-                            <option>১০নং পহরডাঙ্গা</option>
-                        </select>
+                <div class="glass-card p-6 shadow-2xl">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+                        <input type="text" id="searchInput" placeholder="নাম বা পিতা/মাতার নাম" class="input-style search-field">
+                        <input type="text" id="dobInput" placeholder="জন্ম তারিখ (যেমন: ০১.০১.১৯৯০)" class="input-style search-field">
+                        <select id="unionFilter" class="input-style bg-white"><option>১০নং পহরডাঙ্গা</option></select>
                         <select id="wardFilter" class="input-style bg-white">
                             <option value="all">সকল ওয়ার্ড</option>
-                            <option value="1">ওয়ার্ড ১</option>
-                            <option value="2">ওয়ার্ড ২</option>
-                            <option value="3">ওয়ার্ড ৩</option>
-                            <option value="4">ওয়ার্ড ৪</option>
-                            <option value="5">ওয়ার্ড ৫</option>
-                            <option value="6">ওয়ার্ড ৬</option>
-                            <option value="7">ওয়ার্ড ৭</option>
-                            <option value="8">ওয়ার্ড ৮</option>
-                            <option value="9">ওয়ার্ড ৯</option>
+                            <option value="1">ওয়ার্ড ১</option><option value="2">ওয়ার্ড ২</option><option value="3">ওয়ার্ড ৩</option>
+                            <option value="4">ওয়ার্ড ৪</option><option value="5">ওয়ার্ড ৫</option><option value="6">ওয়ার্ড ৬</option>
+                            <option value="7">ওয়ার্ড ৭</option><option value="8">ওয়ার্ড ৮</option><option value="9">ওয়ার্ড ৯</option>
+                        </select>
+                        <select id="genderFilter" class="input-style bg-white">
+                            <option value="all">লিঙ্গ</option>
+                            <option value="পুরুষ">পুরুষ</option><option value="মহিলা">মহিলা</option>
                         </select>
                     </div>
-                    <div class="flex gap-3 mt-6">
-                        <button id="searchBtn" onclick="searchVoter()" class="btn-search flex items-center justify-center gap-2">
+                    <div class="flex flex-col md:flex-row gap-3 mt-6">
+                        <button id="searchBtn" onclick="searchVoter()" class="btn-search flex items-center justify-center gap-2 order-1 md:order-2">
                             <span id="btnText">🔍 অনুসন্ধান</span>
                             <div id="loader" class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin hidden"></div>
                         </button>
-                        <button onclick="clearInputs()" class="bg-slate-200 text-slate-700 px-6 rounded-lg font-bold hover:bg-slate-300 transition">মুছুন</button>
+                        <button onclick="clearInputs()" class="bg-slate-200 text-slate-700 px-6 py-3 rounded-lg font-bold order-2 md:order-1">মুছুন</button>
                     </div>
                 </div>
             </div>
 
             <div id="resultsPage" class="page-state hidden">
                 <div class="max-w-6xl mx-auto">
-                    <button onclick="showPage('searchPage')" class="mb-4 bg-white/20 text-white px-4 py-2 rounded-lg font-bold">← পুনরায় সার্চ করুন</button>
-                    <div id="resultCount" class="text-white mb-4 font-bold"></div>
-                    <div id="resultsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                    <button onclick="showPage('searchPage')" class="mb-4 bg-white/20 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2">← ফিরে যান</button>
+                    <div id="resultCount" class="bg-white p-3 rounded-xl mb-4 font-bold text-green-800 shadow-sm inline-block text-sm"></div>
+                    <div id="resultsList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </div>
             </div>
 
             <div id="slipPage" class="page-state hidden">
                 <div class="flex flex-col items-center">
-                    <div class="flex gap-3 mb-6 no-print">
-                        <button onclick="showPage('resultsPage')" class="bg-white px-6 py-2 rounded-lg font-bold shadow">পিছনে</button>
-                        <button onclick="window.print()" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold shadow">প্রিন্ট</button>
-                        <button onclick="downloadSlip()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-bold shadow">ছবি ডাউনলোড</button>
+                    <div class="flex gap-2 mb-6 no-print">
+                        <button onclick="showPage('resultsPage', false)" class="bg-white px-5 py-2 rounded-lg font-bold shadow text-sm">পিছনে</button>
+                        <button onclick="window.print()" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-bold shadow text-sm">প্রিন্ট</button>
+                        <button onclick="downloadSlip()" class="bg-green-600 text-white px-5 py-2 rounded-lg font-bold shadow text-sm">ডাউনলোড</button>
                     </div>
                     
-                    <div id="downloadableSlip" class="w-full max-w-[420px] bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
-                        <div class="bg-[#064e3b] p-6 text-white">
+                    <div id="downloadableSlip" class="w-full max-w-[400px] bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
+                        <div class="bg-[#064e3b] p-5 text-white">
                             <div class="flex items-center gap-4">
-                                <div class="w-16 h-16 bg-white rounded-full overflow-hidden border-2 border-green-400">
-                                    <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" class="w-full h-full object-cover">
+                                <div class="w-14 h-14 bg-white rounded-full overflow-hidden border-2 border-green-400">
+                                    <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" class="w-full h-full object-cover" crossorigin="anonymous">
                                 </div>
                                 <div class="text-left">
-                                    <p class="text-[11px] opacity-80">চলো একসাথে ১০নং পহরডাঙ্গা ইউনিয়ন-কে গড়ি</p>
-                                    <h3 class="font-bold text-lg">ঠাকুর আবুল আজম</h3>
-                                    <p class="text-sm font-bold text-green-300">ধানের শীষ মার্কায় ভোট দিন</p>
+                                    <p class="text-[10px] opacity-80 leading-tight">১০নং পহরডাঙ্গা ইউনিয়ন</p>
+                                    <h3 class="font-bold text-base">ঠাকুর আবুল আজম</h3>
+                                    <p class="text-[11px] font-bold text-green-300">ধানের শীষ মার্কায় ভোট দিন</p>
                                 </div>
-                                <div class="bg-white/10 p-2 rounded-xl">
-                                    <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" class="w-10 h-10 object-contain">
+                                <div class="bg-white/10 p-2 rounded-xl ml-auto">
+                                    <img src="https://lh3.googleusercontent.com/d/17sGo8tVgyVlOS7BMpBol7kdim1mUaFaH" class="w-8 h-8 object-contain" crossorigin="anonymous">
                                 </div>
                             </div>
                         </div>
                         <div class="px-6 py-4">
-                            <div class="text-center mb-4">
-                                <span class="bg-green-600 text-white text-[10px] py-1 px-4 rounded-full font-bold">ভোটার তথ্য স্লিপ</span>
+                            <div class="text-center mb-4"><span class="bg-green-600 text-white text-[10px] py-1 px-4 rounded-full font-bold">ভোটার স্লিপ</span></div>
+                            <div class="grid grid-cols-2 gap-y-3 text-[12px] border-t pt-4">
+                                <div><p class="text-slate-400 text-[9px] font-bold">ক্রমিক নং</p><p id="sSl" class="font-black text-slate-800 text-lg"></p></div>
+                                <div><p class="text-slate-400 text-[9px] font-bold">ভোটার নং</p><p id="sId" class="font-bold text-slate-800"></p></div>
+                                <div class="col-span-1"><p class="text-slate-400 text-[9px] font-bold">ভোটারের নাম</p><p id="sName" class="font-black text-green-700"></p></div>
+                                <div class="col-span-1"><p id="sRelationTitle" class="text-slate-400 text-[9px] font-bold">পিতার নাম</p><p id="sParent" class="font-bold text-slate-700"></p></div>
+                                <div><p class="text-slate-400 text-[9px] font-bold">মাতার নাম</p><p id="sMother" class="font-bold text-slate-700"></p></div>
+                                <div><p class="text-slate-400 text-[9px] font-bold">জন্ম তারিখ</p><p id="sDob" class="font-bold text-slate-700"></p></div>
+                                <div><p class="text-slate-400 text-[9px] font-bold">ওয়ার্ড নং</p><p id="sWard" class="font-bold text-slate-700"></p></div>
+                                <div><p class="text-slate-400 text-[9px] font-bold">ঠিকানা</p><p id="sAddress" class="font-bold text-slate-700 text-[10px]"></p></div>
                             </div>
-                            <div class="grid grid-cols-2 gap-y-4 text-[13px] border-t pt-4">
-                                <div><p class="text-slate-400 text-[10px] font-bold">ক্রমিক নং (SL)</p><p id="sSl" class="font-black text-slate-800 text-lg"></p></div>
-                                <div><p class="text-slate-400 text-[10px] font-bold">ভোটার নং (ID)</p><p id="sId" class="font-bold text-slate-800"></p></div>
-                                <div class="col-span-1"><p class="text-slate-400 text-[10px] font-bold">ভোটারের নাম</p><p id="sName" class="font-black text-green-700"></p></div>
-                                <div class="col-span-1"><p id="sRelationTitle" class="text-slate-400 text-[10px] font-bold">পিতার নাম</p><p id="sParent" class="font-bold text-slate-700"></p></div>
-                                <div><p class="text-slate-400 text-[10px] font-bold">মাতার নাম</p><p id="sMother" class="font-bold text-slate-700"></p></div>
-                                <div><p class="text-slate-400 text-[10px] font-bold">জন্ম তারিখ</p><p id="sDob" class="font-bold text-slate-700"></p></div>
-                                <div><p class="text-slate-400 text-[10px] font-bold">ওয়ার্ড নং</p><p id="sWard" class="font-bold text-slate-700"></p></div>
-                                <div><p class="text-slate-400 text-[10px] font-bold">ঠিকানা</p><p id="sAddress" class="font-bold text-slate-700 text-[11px]"></p></div>
-                            </div>
-                            <div class="mt-6 p-3 bg-green-50 rounded-xl border border-green-100 text-center">
-                                <p class="text-[10px] text-green-600 font-bold uppercase">ভোট কেন্দ্র</p>
-                                <p id="sCenter" class="font-bold text-green-900 leading-tight"></p>
+                            <div class="mt-5 p-3 bg-green-50 rounded-xl border border-green-100 text-center">
+                                <p class="text-[9px] text-green-600 font-bold uppercase">ভোট কেন্দ্র</p>
+                                <p id="sCenter" class="font-bold text-green-900 leading-tight text-xs"></p>
                             </div>
                         </div>
-                        <div class="bg-slate-50 p-3 flex justify-between items-center text-[9px] font-bold text-slate-400 border-t">
-                            <p>সৌজন্যে: ঠাকুর আবুল আজম</p>
-                            <p>ভোট দিন ধানের শীষ মার্কায়</p>
-                        </div>
+                        <div class="bg-slate-50 px-5 py-2 flex justify-between items-center border-t">
+        <span class="text-[10px] font-bold text-slate-500">সৌজন্যে: ঠাকুর আবুল আজম</span>
+        <span class="text-[10px] font-bold text-green-700">ভোট দিন ধানের শীষে</span>
+    </div>
                     </div>
                 </div>
             </div>
@@ -160,6 +153,16 @@
     </div>
 
     <script>
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false;
+            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0))) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+            if (e.keyCode === 13) {
+                const activeEl = document.activeElement;
+                if (activeEl.classList.contains('search-field')) searchVoter();
+            }
+        };
+
         const _0xUrl = {
             "1": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=0&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=5047340&single=true&output=csv"],
             "2": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1603235938&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=253713252&single=true&output=csv"],
@@ -172,9 +175,8 @@
             "9": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=2064944158&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1194678736&single=true&output=csv"]
         };
 
-        function normalize(t) {
-            return t ? t.toString().toLowerCase().replace(/[সষশ]/g,'স').replace(/[নণ]/g,'ন').replace(/[িী]/g,'ি').replace(/[ুূ]/g,'ু').replace(/\s+/g,'') : "";
-        }
+        function toBanglaNum(n) { return n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]); }
+        function normalize(t) { return t ? t.toString().toLowerCase().replace(/[সষশ]/g,'স').replace(/[নণ]/g,'ন').replace(/[িী]/g,'ি').replace(/[ুূ]/g,'ু').replace(/\s+/g,'') : ""; }
 
         async function fetchCSV(u) {
             try {
@@ -183,7 +185,7 @@
                 const rows = txt.split(/\r?\n/).filter(r => r.trim()).slice(1);
                 return rows.map(r => {
                     const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.trim().replace(/^"|"$/g,''));
-                    return { sl:c[0], id:c[1], name:c[2], parent:c[3], rel:c[4], mother:c[5], dob:c[6], ward:c[7], addr:c.slice(8).join(', ') };
+                    return { sl:c[0], id:c[1], name:c[2], parent:c[3], rel:c[4], mother:c[5], dob:c[6], ward:c[7], addr:c[8], gender:c[9] };
                 });
             } catch (e) { return []; }
         }
@@ -191,29 +193,25 @@
         async function searchVoter() {
             const input = document.getElementById('searchInput').value.trim();
             const ward = document.getElementById('wardFilter').value;
-            if(!input && ward === 'all') return alert("অনুগ্রহ করে নাম বা আইডি লিখুন!");
-
+            const gender = document.getElementById('genderFilter').value;
+            const dob = document.getElementById('dobInput').value.trim();
+            if(!input && !dob && ward === 'all') { alert("অনুগ্রহ করে অন্তত একটি তথ্য দিন"); return; }
             document.getElementById('loader').classList.remove('hidden');
             document.getElementById('btnText').innerText = "খোঁজা হচ্ছে...";
-
             let targetUrls = (ward === 'all') ? Object.values(_0xUrl).flat() : _0xUrl[ward];
-            
             try {
                 const results = await Promise.all(targetUrls.map(u => fetchCSV(u)));
                 const allData = results.flat();
                 const q = normalize(input);
-
-                const filtered = allData.filter(v => 
-                    normalize(v.name).includes(q) || 
-                    normalize(v.parent).includes(q) || 
-                    normalize(v.mother).includes(q) || 
-                    v.id.toString().includes(input)
-                );
-
+                const filtered = allData.filter(v => {
+                    const matchText = !input || (normalize(v.name).includes(q) || normalize(v.parent).includes(q) || normalize(v.mother).includes(q) || v.id.toString().includes(input));
+                    const matchGender = (gender === 'all' || v.gender === gender);
+                    const matchDob = !dob || v.dob.includes(dob);
+                    return matchText && matchGender && matchDob;
+                });
                 renderResults(filtered);
-            } catch (e) {
-                alert("ত্রুটি দেখা দিয়েছে!");
-            } finally {
+            } catch (e) { alert("ত্রুটি হয়েছে!"); }
+            finally {
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('btnText').innerText = "🔍 অনুসন্ধান";
             }
@@ -231,28 +229,23 @@
         function renderResults(data) {
             const list = document.getElementById('resultsList');
             list.innerHTML = "";
-            document.getElementById('resultCount').innerText = `মোট ${data.length} টি তথ্য পাওয়া গেছে`;
-            
-            if(!data.length) {
-                list.innerHTML = `<p class="col-span-full text-center py-10 font-bold text-white/50">কোন তথ্য পাওয়া যায়নি</p>`;
+            document.getElementById('resultCount').innerHTML = `✅ ফলাফল পাওয়া গেছে: <span class="text-green-600">${toBanglaNum(data.length)} জন</span>`;
+            if(data.length === 0) {
+                list.innerHTML = `<p class="col-span-full text-center py-10 text-white font-bold opacity-50">কোন তথ্য পাওয়া যায়নি</p>`;
             } else {
                 data.forEach(v => {
-                    const centerName = getCenter(v.ward);
                     const div = document.createElement('div');
-                    div.className = "glass-card p-5 cursor-pointer hover:scale-[1.02] transition-transform border-l-4 border-green-500 shadow-lg";
+                    div.className = "glass-card p-4 cursor-pointer hover:shadow-xl transition-all border border-slate-100 flex justify-between items-center";
                     div.innerHTML = `
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-green-800 text-lg">${v.name}</h4>
-                            <span class="bg-green-100 text-green-700 text-[10px] px-2 py-1 rounded font-bold">ক্রমিক নং: ${v.sl}</span>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-blue-900 text-lg mb-1">${v.name}</h4>
+                            <div class="grid grid-cols-1 gap-y-0.5 text-[12px] text-slate-600">
+                                <p><b>${v.rel === 'স্বামী' ? 'স্বামী' : 'পিতা'}:</b> ${v.parent} | <b>মাতা:</b> ${v.mother}</p>
+                                <p><b>জন্ম:</b> ${v.dob} | <b>ক্রমিক:</b> <span class="text-green-600 font-bold">${v.sl}</span></p>
+                                <p class="text-green-800 font-bold text-[11px]">কেন্দ্র: ${getCenter(v.ward)}</p>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600">
-                            <p><span class="font-bold">ভোটার নং:</span> ${v.id}</p>
-                            <p><span class="font-bold">${v.rel === 'স্বামী' ? 'স্বামী' : 'পিতা'}:</span> ${v.parent}</p>
-                            <p><span class="font-bold">মাতা:</span> ${v.mother}</p>
-                            <p><span class="font-bold">জন্ম তারিখ:</span> ${v.dob}</p>
-                            <p><span class="font-bold">ওয়ার্ড:</span> ${v.ward}</p>
-                        </div>
-                        <p class="text-green-600 font-bold text-[11px] mt-2 border-t pt-2">কেন্দ্র: ${centerName}</p>
+                        <div class="gender-badge ml-2"><span class="text-[10px] font-bold text-blue-600">${v.gender || ''}</span><div class="check-mark">✓</div></div>
                     `;
                     div.onclick = () => {
                         document.getElementById('sName').innerText = v.name;
@@ -263,45 +256,41 @@
                         document.getElementById('sDob').innerText = v.dob;
                         document.getElementById('sWard').innerText = v.ward;
                         document.getElementById('sAddress').innerText = v.addr || "পহরডাঙ্গা ইউনিয়ন";
-                        document.getElementById('sCenter').innerText = centerName;
+                        document.getElementById('sCenter').innerText = getCenter(v.ward);
                         document.getElementById('sRelationTitle').innerText = (v.rel=="স্বামী"?"স্বামীর নাম":"পিতার নাম");
-                        showPage('slipPage');
+                        showPage('slipPage', false);
                     };
                     list.appendChild(div);
                 });
             }
-            showPage('resultsPage');
+            showPage('resultsPage', false);
         }
 
-        // Updated showPage function to clear data when going back to search
-        function showPage(p) {
+        function showPage(p, clearData = true) {
             document.querySelectorAll('.page-state').forEach(div => div.classList.add('hidden'));
             document.getElementById(p).classList.remove('hidden');
-            
-            // যদি ইউজার মেইন সার্চ পেজে ফিরে আসে, তবে আগের রেজাল্ট ও ইনপুট মুছে যাবে
-            if (p === 'searchPage') {
-                clearResults();
+            if (p === 'searchPage' && clearData) {
                 clearInputs();
+                document.getElementById('resultsList').innerHTML = "";
             }
             window.scrollTo(0,0);
-        }
-
-        function clearResults() {
-            const list = document.getElementById('resultsList');
-            if (list) list.innerHTML = "";
-            const count = document.getElementById('resultCount');
-            if (count) count.innerText = "";
         }
 
         function clearInputs() {
             document.getElementById('searchInput').value = "";
             document.getElementById('dobInput').value = "";
             document.getElementById('wardFilter').value = "all";
+            document.getElementById('genderFilter').value = "all";
         }
 
         function downloadSlip() {
             const slip = document.getElementById('downloadableSlip');
-            html2canvas(slip, { scale: 3, useCORS: true }).then(canvas => {
+            html2canvas(slip, { 
+                scale: 3,
+                useCORS: true, 
+                allowTaint: false,
+                backgroundColor: "#ffffff"
+            }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = `Voter_Slip_${document.getElementById('sSl').innerText}.png`;
                 link.href = canvas.toDataURL("image/png");
