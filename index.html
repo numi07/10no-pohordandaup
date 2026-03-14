@@ -40,7 +40,7 @@
                 </div>
                 <div class="flex gap-4 text-sm">
                     <button class="hover:underline" onclick="showPage('searchPage')">সন্ধান করুন</button>
-                    <button class="hover:underline"><a href="https://thakurabulazam.vercel.app">হোম</a></button>
+                    <button class="hover:underline"><a href="index.html">হোম</a></button>
                 </div>
             </div>
         </nav>
@@ -53,7 +53,7 @@
                              <img src="https://lh3.googleusercontent.com/d/1HOkLWo1TpFYIidO9b1z_4FOimRrigg8A" alt="Candidate" class="w-full h-full object-cover" crossorigin="anonymous">
                         </div>
                         <div class="text-white text-center md:text-left">
-                            <h2 class="text-lg font-bold">চলো একসাথে সুস্থ সমাজ গড়ি</h2>
+                            <h2 class="text-lg font-bold">চলো একসাথে ইউনিয়ন গড়ি</h2>
                             <h1 class="text-2xl font-black text-green-400">ঠাকুর আবুল আজম</h1>
                         </div>
                     </div>
@@ -136,6 +136,7 @@
                                 <div><p class="text-slate-400 text-[9px] font-bold">জন্ম তারিখ</p><p id="sDob" class="font-bold text-slate-700"></p></div>
                                 <div><p class="text-slate-400 text-[9px] font-bold">ওয়ার্ড নং</p><p id="sWard" class="font-bold text-slate-700"></p></div>
                                 <div><p class="text-slate-400 text-[9px] font-bold">ঠিকানা</p><p id="sAddress" class="font-bold text-slate-700 text-[10px]"></p></div>
+                                <div><p class="text-slate-400 text-[9px] font-bold">পেশা</p><p id="sJob" class="font-bold text-slate-700"></p></div>
                             </div>
                             <div class="mt-5 p-3 bg-green-50 rounded-xl border border-green-100 text-center">
                                 <p class="text-[9px] text-green-600 font-bold uppercase">ভোট কেন্দ্র</p>
@@ -143,9 +144,9 @@
                             </div>
                         </div>
                         <div class="bg-slate-50 px-5 py-2 flex justify-between items-center border-t">
-        <span class="text-[10px] font-bold text-slate-500">সৌজন্যে: ঠাকুর আবুল আজম</span>
-        <span class="text-[10px] font-bold text-green-700">ভোট দিন ধানের শীষে</span>
-    </div>
+                            <span class="text-[10px] font-bold text-slate-500">সৌজন্যে: ঠাকুর আবুল আজম</span>
+                            <span class="text-[10px] font-bold text-green-700">ভোট দিন ধানের শীষে</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,7 +186,8 @@
                 const rows = txt.split(/\r?\n/).filter(r => r.trim()).slice(1);
                 return rows.map(r => {
                     const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.trim().replace(/^"|"$/g,''));
-                    return { sl:c[0], id:c[1], name:c[2], parent:c[3], rel:c[4], mother:c[5], dob:c[6], ward:c[7], addr:c[8], gender:c[9] };
+                    // Index 10 এ পেশা (Column K) থাকে
+                    return { sl:c[0], id:c[1], name:c[2], parent:c[3], rel:c[4], mother:c[5], dob:c[6], ward:c[7], addr:c[8], gender:c[9], job:c[10] };
                 });
             } catch (e) { return []; }
         }
@@ -256,6 +258,7 @@
                         document.getElementById('sDob').innerText = v.dob;
                         document.getElementById('sWard').innerText = v.ward;
                         document.getElementById('sAddress').innerText = v.addr || "পহরডাঙ্গা ইউনিয়ন";
+                        document.getElementById('sJob').innerText = v.job || "---"; // পেশা সেট করা হচ্ছে
                         document.getElementById('sCenter').innerText = getCenter(v.ward);
                         document.getElementById('sRelationTitle').innerText = (v.rel=="স্বামী"?"স্বামীর নাম":"পিতার নাম");
                         showPage('slipPage', false);
