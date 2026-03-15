@@ -154,17 +154,8 @@
     </div>
 
     <script>
-        const SHEET_URLS = {
-            "1": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=0&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=5047340&single=true&output=csv"],
-            "2": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1603235938&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=253713252&single=true&output=csv"],
-            "3": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1802460558&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1477496566&single=true&output=csv"],
-            "4": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=210840735&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1072213615&single=true&output=csv"],
-            "5": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=804474196&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=578944965&single=true&output=csv"],
-            "6": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=415847962&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1285934073&single=true&output=csv"],
-            "7": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=826694310&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=412030752&single=true&output=csv"],
-            "8": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=2060395915&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1575712484&single=true&output=csv"],
-            "9": ["https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=2064944158&single=true&output=csv", "https://docs.google.com/spreadsheets/d/e/2PACX-1vRY6jwGOwe7vxsOUJa8fxXWFRugbk3sGn_FOr35Pb4t-9gmL4ye3q5DLYYlDizZCZ2h7XUTqWc6IHpr/pub?gid=1194678736&single=true&output=csv"]
-        };
+        // আপনার দেওয়া App Script লিংক
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyKeavzB3qQSQuacz57ysrUtLYYliUw6w-bRLPhK8-YE7XkYtzRyvw3WBCDVHImP86Dlg/exec";
 
         function toBN(n) { return n ? n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]) : "---"; }
 
@@ -179,48 +170,51 @@
             return "কেন্দ্র নির্ধারিত হয়নি";
         }
 
-        async function fetchCSV(url) {
-            try {
-                const res = await fetch(url);
-                const text = await res.text();
-                const rows = text.split(/\r?\n/).slice(1);
-                return rows.map(r => {
-                    const c = r.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.trim().replace(/^"|"$/g,''));
-                    return { sl:c[0], id:c[1], name:c[2], parent:c[3], rel:c[4], mother:c[5], dob:c[6], ward:c[7], addr:c[8], gender:c[9], occ:c[10] || "---" };
-                });
-            } catch (e) { return []; }
+        // শুধুমাত্র স্ক্রিপ্ট অংশের searchVoter ফাংশনটি রিপ্লেস করলেই হবে, নিচে পূর্ণাঙ্গ কোড দেওয়া হলো:
+
+async function searchVoter() {
+    const q = document.getElementById('searchInput').value.trim();
+    const w = document.getElementById('wardFilter').value;
+    const g = document.getElementById('genderFilter').value;
+    const d = document.getElementById('dobInput').value.trim();
+
+    if(!q && !d && w === 'all') { alert("তথ্য দিন!"); return; }
+
+    document.getElementById('loader').classList.remove('hidden');
+    document.getElementById('btnText').innerText = "খোঁজা হচ্ছে...";
+
+    let url = `${APPS_SCRIPT_URL}?ward=${w}&gender=${g}`;
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        // আপনার চাহিদা অনুযায়ী নাম, পিতা এবং মাতা—সব কলামে সার্চ করার লজিক
+        const filtered = data.filter(v => {
+            const searchStr = q.toLowerCase();
+            const matchText = !q || (
+                v.name?.toString().toLowerCase().includes(searchStr) || 
+                v.parent?.toString().toLowerCase().includes(searchStr) || 
+                v.mother?.toString().toLowerCase().includes(searchStr) || 
+                v.id?.toString().includes(searchStr)
+            );
+            const matchDob = !d || v.dob?.toString().includes(d);
+            return matchText && matchDob;
+        });
+
+        if (filtered.length === 0) {
+            alert("কোনো তথ্য পাওয়া যায়নি!");
+        } else {
+            renderResults(filtered);
         }
-
-        async function searchVoter() {
-            const q = document.getElementById('searchInput').value.trim();
-            const w = document.getElementById('wardFilter').value;
-            const g = document.getElementById('genderFilter').value;
-            const d = document.getElementById('dobInput').value.trim();
-
-            if(!q && !d && w === 'all') { alert("তথ্য দিন!"); return; }
-
-            document.getElementById('loader').classList.remove('hidden');
-            document.getElementById('btnText').innerText = "খোঁজা হচ্ছে...";
-
-            let targetUrls = (w === 'all') ? Object.values(SHEET_URLS).flat() : SHEET_URLS[w];
-
-            try {
-                const allData = await Promise.all(targetUrls.map(url => fetchCSV(url)));
-                const data = allData.flat();
-                const filtered = data.filter(v => {
-                    const matchText = !q || (v.name?.includes(q) || v.parent?.includes(q) || v.id?.includes(q));
-                    const matchGender = (g === 'all' || v.gender === g);
-                    const matchDob = !d || v.dob?.includes(d);
-                    return matchText && matchGender && matchDob;
-                });
-                renderResults(filtered);
-            } catch (e) {
-                alert("ডাটা লোড করতে সমস্যা হয়েছে!");
-            } finally {
-                document.getElementById('loader').classList.add('hidden');
-                document.getElementById('btnText').innerText = "🔍 অনুসন্ধান";
-            }
-        }
+    } catch (e) {
+        console.error(e);
+        alert("ডাটা লোড করতে সমস্যা হয়েছে!");
+    } finally {
+        document.getElementById('loader').classList.add('hidden');
+        document.getElementById('btnText').innerText = "🔍 অনুসন্ধান";
+    }
+}
 
         function renderResults(data) {
             const list = document.getElementById('resultsList');
@@ -250,7 +244,7 @@
                     document.getElementById('sMother').innerText = v.mother;
                     document.getElementById('sDob').innerText = toBN(v.dob);
                     document.getElementById('sWard').innerText = toBN(v.ward);
-                    document.getElementById('sOccupation').innerText = v.occ;
+                    document.getElementById('sOccupation').innerText = v.occ || "---";
                     document.getElementById('sAddress').innerText = v.addr || "পহরডাঙ্গা ইউনিয়ন";
                     document.getElementById('sCenter').innerText = getCenter(v.ward);
                     document.getElementById('sRelationTitle').innerText = (v.rel == "স্বামী" ? "স্বামীর নাম" : "পিতার নাম");
