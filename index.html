@@ -154,7 +154,6 @@
     </div>
 
     <script>
-        // আপনার দেওয়া App Script লিংক
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyKeavzB3qQSQuacz57ysrUtLYYliUw6w-bRLPhK8-YE7XkYtzRyvw3WBCDVHImP86Dlg/exec";
 
         function toBN(n) { return n ? n.toString().replace(/\d/g, d => "০১২৩৪৫৬৭৮৯"[d]) : "---"; }
@@ -170,7 +169,6 @@
             return "কেন্দ্র নির্ধারিত হয়নি";
         }
 
-        // শুধুমাত্র স্ক্রিপ্ট অংশের searchVoter ফাংশনটি রিপ্লেস করলেই হবে, নিচে পূর্ণাঙ্গ কোড দেওয়া হলো:
 
 async function searchVoter() {
     const q = document.getElementById('searchInput').value.trim();
@@ -189,7 +187,6 @@ async function searchVoter() {
         const response = await fetch(url);
         const data = await response.json();
         
-        // আপনার চাহিদা অনুযায়ী নাম, পিতা এবং মাতা—সব কলামে সার্চ করার লজিক
         const filtered = data.filter(v => {
             const searchStr = q.toLowerCase();
             const matchText = !q || (
