@@ -169,49 +169,65 @@
             return "কেন্দ্র নির্ধারিত হয়নি";
         }
 
-
-async function searchVoter() {
-    const q = document.getElementById('searchInput').value.trim();
-    const w = document.getElementById('wardFilter').value;
-    const g = document.getElementById('genderFilter').value;
-    const d = document.getElementById('dobInput').value.trim();
-
-    if(!q && !d && w === 'all') { alert("তথ্য দিন!"); return; }
-
-    document.getElementById('loader').classList.remove('hidden');
-    document.getElementById('btnText').innerText = "খোঁজা হচ্ছে...";
-
-    let url = `${APPS_SCRIPT_URL}?ward=${w}&gender=${g}`;
-
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        const filtered = data.filter(v => {
-            const searchStr = q.toLowerCase();
-            const matchText = !q || (
-                v.name?.toString().toLowerCase().includes(searchStr) || 
-                v.parent?.toString().toLowerCase().includes(searchStr) || 
-                v.mother?.toString().toLowerCase().includes(searchStr) || 
-                v.id?.toString().includes(searchStr)
-            );
-            const matchDob = !d || v.dob?.toString().includes(d);
-            return matchText && matchDob;
-        });
-
-        if (filtered.length === 0) {
-            alert("কোনো তথ্য পাওয়া যায়নি!");
-        } else {
-            renderResults(filtered);
+        function universalNormalize(text) {
+            if (!text) return "";
+            return text.toString()
+                .trim()
+                .replace(/[শষসছচ]/g, 'X')
+                .replace(/[জযয্ব]/g, 'J')
+                .replace(/[রড়ঢ়]/g, 'R')
+                .replace(/[ইঈিী]/g, 'i')
+                .replace(/[উঊুূ]/g, 'u')
+                .replace(/ণ/g, 'ন')
+                .replace(/ /g, '');
         }
-    } catch (e) {
-        console.error(e);
-        alert("ডাটা লোড করতে সমস্যা হয়েছে!");
-    } finally {
-        document.getElementById('loader').classList.add('hidden');
-        document.getElementById('btnText').innerText = "🔍 অনুসন্ধান";
-    }
-}
+
+        async function searchVoter() {
+            const rawQuery = document.getElementById('searchInput').value.trim();
+            const w = document.getElementById('wardFilter').value;
+            const g = document.getElementById('genderFilter').value;
+            const d = document.getElementById('dobInput').value.trim();
+
+            if(!rawQuery && !d && w === 'all') { alert("তথ্য দিন!"); return; }
+
+            document.getElementById('loader').classList.remove('hidden');
+            document.getElementById('btnText').innerText = "খোঁজা হচ্ছে...";
+
+            try {
+                const response = await fetch(`${APPS_SCRIPT_URL}?ward=${w}&gender=${g}`);
+                const data = await response.json();
+                
+                const searchKey = universalNormalize(rawQuery);
+
+                const filtered = data.filter(v => {
+                    const dbName = universalNormalize(v.name);
+                    const dbParent = universalNormalize(v.parent);
+                    const dbMother = universalNormalize(v.mother);
+                    const dbId = v.id ? v.id.toString() : "";
+
+                    const matchText = !rawQuery || (
+                        dbName.includes(searchKey) || 
+                        dbParent.includes(searchKey) || 
+                        dbMother.includes(searchKey) || 
+                        dbId.includes(rawQuery)
+                    );
+                    
+                    const matchDob = !d || (v.dob && v.dob.toString().includes(d));
+                    return matchText && matchDob;
+                });
+
+                if (filtered.length === 0) {
+                    alert("কোনো তথ্য পাওয়া যায়নি!");
+                } else {
+                    renderResults(filtered);
+                }
+            } catch (e) {
+                alert("নেটওয়ার্ক সমস্যা!");
+            } finally {
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('btnText').innerText = "🔍 অনুসন্ধান";
+            }
+        }
 
         function renderResults(data) {
             const list = document.getElementById('resultsList');
