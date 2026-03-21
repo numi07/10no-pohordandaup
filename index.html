@@ -66,7 +66,16 @@
                     <h2 class="text-2xl md:text-3xl font-bold mb-1">ভোটার তথ্য অনুসন্ধান</h2>
                     <p class="opacity-70 text-sm">পহরডাঙ্গা ১০নং ইউনিয়ন - স্মার্ট সেবা</p>
                 </div>
-
+<div class="flex justify-start items-center mb-2 px-1 no-print">
+            <div class="text-white text-[12px] font-medium flex gap-2 items-center bg-white/5 py-1 px-3 rounded-full border border-white/10">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+                <span id="liveClock" class="font-bold border-r border-white/30 pr-2"></span>
+                <span id="liveDate" class="opacity-90"></span>
+            </div>
+        </div>
                 <div class="glass-card p-6 shadow-2xl">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3" onkeypress="if(event.key==='Enter') searchVoter()">
                         <input type="text" id="searchInput" placeholder="নাম বা পিতা/মাতার নাম" class="input-style">
@@ -307,6 +316,26 @@
                 link.click();
             });
         }
+        function updateLiveTime() {
+    const now = new Date();
+    
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+    let ampm = hours >= 12 ? 'পিএম' : 'এএম';
+    hours = hours % 12 || 12;
+
+    const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+    
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('bn-BD', options);
+
+    document.getElementById('liveClock').innerText = toBN(timeStr);
+    document.getElementById('liveDate').innerText = dateStr;
+}
+
+setInterval(updateLiveTime, 1000);
+updateLiveTime();
     </script>
 </body>
 </html>
