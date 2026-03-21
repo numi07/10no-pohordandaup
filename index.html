@@ -174,18 +174,29 @@
             return text.toString()
                 .trim()
                 .normalize('NFC')
-                .replace(/[\u09BC\u09CD]/g, '')
-                .replace(/্য/g, '')
-                .replace(/[শষসছচ]/g, 'X')
-                .replace(/[জযয্ব]/g, 'J')
-                .replace(/[রড়ঢ়]/g, 'R')
-                .replace(/[ইঈিী]/g, 'i')
-                .replace(/[উঊুূ]/g, 'u')
-                .replace(/[ওো]/g, '')
-                .replace(/লল/g, 'ল')
-                .replace(/ণ/g, 'ন')
-                .replace(/[:ঃ.]/g, '')
-                .replace(/\s+/g, '');
+                let str = text.toString().trim().normalize('NFC');
+
+            // ২. বিসর্গ, কোলন, ডট এবং হসন্ত (্) ও নুকতা মুছে ফেলা
+            str = str.replace(/[:ঃ.।\u09BC\u09CD]/g, '');
+
+            // ৩. য-ফলা এবং ব-ফলা মুছে ফেলা (যাতে মোল্যা -> মোল হয়)
+            str = str.replace(/[্যব্]/g, '');
+
+            // ৪. একই অক্ষর পরপর দুইবার থাকলে একটা মুছে ফেলা (যাতে মোল্লা/মোলল -> মোল হয়)
+            // এটি ল্ল, ম্ম, ন্ন সবগুলোর জন্য কাজ করবে
+            str = str.replace(/(.)\1+/g, '$1');
+
+            // ৫. সমজাতীয় বর্ণগুলোকে এক করা
+            str = str.replace(/[শষসছচ]/g, 'X')
+                     .replace(/[জয]/g, 'J')
+                     .replace(/[রড়ঢ়]/g, 'R')
+                     .replace(/[ইঈিী]/g, 'i')
+                     .replace(/[উঊুূ]/g, 'u')
+                     .replace(/[ওো]/g, '')
+                     .replace(/ণ/g, 'ন')
+                     .replace(/\s+/g, '');
+
+            return str;
         }
 
         async function searchVoter() {
