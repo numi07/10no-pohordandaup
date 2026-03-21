@@ -173,14 +173,16 @@
             if (!text) return "";
             return text.toString()
                 .trim()
+                .normalize('NFC')
+                .replace(/[\u09BC\u09CD]/g, '')
                 .replace(/[শষসছচ]/g, 'X')
                 .replace(/[জযয্ব]/g, 'J')
-                .replace(/[রড়ঢ়র্্র]/g, 'R')
+                .replace(/[রড়ঢ়]/g, 'R')
                 .replace(/[ইঈিী]/g, 'i')
                 .replace(/[উঊুূ]/g, 'u')
                 .replace(/[ওো]/g, '')
                 .replace(/ণ/g, 'ন')
-                .replace(/ /g, '');
+                .replace(/\s+/g, '');
         }
 
         async function searchVoter() {
