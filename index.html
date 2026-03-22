@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { font-family: 'Noto Serif Bengali', sans-serif; background-color: #0f4c3a; user-select: none; }
+        body { font-family: 'Noto Serif Bengali', sans-serif; background-color: #0f4c3a; user-select: none; margin: 0; padding: 0; }
         .main-container { background: linear-gradient(180deg, #0f4c3a 0%, #166534 100%); min-height: 100vh; }
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 20px; }
         .input-style { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 15px; width: 100%; outline: none; transition: all 0.3s; font-size: 14px; }
@@ -26,12 +26,71 @@
             display: flex; align-items: center; justify-content: center; font-size: 9px; 
             position: absolute; bottom: -2px; right: -2px; border: 2px solid white; 
         }
-        @media print { .no-print { display: none; } body { background: white; } }
+
+        /* --- Updated Premium Fixed Glass Footer (Centered) --- */
+        .fixed-footer-glass {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 1px solid rgba(255, 255, 255, 0.25);
+            z-index: 10000;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* Constant Shiny Reflection Effect */
+        .fixed-footer-glass::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 40%;
+            height: 100%;
+            background: linear-gradient(
+                to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                rgba(255, 255, 255, 0.4), 
+                rgba(255, 255, 255, 0.1), 
+                transparent
+            );
+            transform: skewX(-30deg);
+            animation: glass-shine 3.5s infinite linear;
+        }
+
+        @keyframes glass-shine {
+            0% { left: -150%; }
+            100% { left: 150%; }
+        }
+
+        .footer-content {
+            color: #ffffff;
+            font-size: 14px;
+            line-height: 1.4;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-content strong {
+            color: #4ade80; /* Light Green for emphasis */
+        }
+
+        @media print { .no-print { display: none; } body { background: white; } .fixed-footer-glass { display: none; } }
+        @media (max-width: 640px) { .footer-content { font-size: 11px; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="main-container pb-10">
+    <div class="main-container pb-24">
         <nav class="sticky top-0 z-50 bg-[#0f4c3a]/80 backdrop-blur-md py-3 mb-6 no-print border-b border-white/10">
             <div class="container mx-auto px-4 flex justify-between items-center text-white">
                 <div class="flex items-center gap-2">
@@ -46,6 +105,7 @@
         </nav>
 
         <main class="container mx-auto px-4">
+            <!-- Search Page -->
             <div id="searchPage" class="page-state max-w-5xl mx-auto">
                 <div class="bg-[#052e21] rounded-3xl p-5 mb-8 flex flex-col md:flex-row items-center justify-between border border-white/20 shadow-2xl">
                     <div class="flex items-center gap-4">
@@ -66,16 +126,18 @@
                     <h2 class="text-2xl md:text-3xl font-bold mb-1">ভোটার তথ্য অনুসন্ধান</h2>
                     <p class="opacity-70 text-sm">পহরডাঙ্গা ১০নং ইউনিয়ন - স্মার্ট সেবা</p>
                 </div>
-<div class="flex justify-start items-center mb-2 px-1 no-print">
-            <div class="text-white text-[12px] font-medium flex gap-2 items-center bg-white/5 py-1 px-3 rounded-full border border-white/10">
-            <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-                <span id="liveClock" class="font-bold border-r border-white/30 pr-2"></span>
-                <span id="liveDate" class="opacity-90"></span>
-            </div>
-        </div>
+
+                <div class="flex justify-start items-center mb-2 px-1 no-print">
+                    <div class="text-white text-[12px] font-medium flex gap-2 items-center bg-white/5 py-1 px-3 rounded-full border border-white/10">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                        <span id="liveClock" class="font-bold border-r border-white/30 pr-2"></span>
+                        <span id="liveDate" class="opacity-90"></span>
+                    </div>
+                </div>
+
                 <div class="glass-card p-6 shadow-2xl">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3" onkeypress="if(event.key==='Enter') searchVoter()">
                         <input type="text" id="searchInput" placeholder="নাম বা পিতা/মাতার নাম" class="input-style">
@@ -162,6 +224,15 @@
         </main>
     </div>
 
+    <!-- --- Centered Fixed Glass Footer --- -->
+    <footer class="fixed-footer-glass no-print">
+        <div class="footer-content">
+            সৌজন্যে: ঠাকুর আবুল আজম "স্মার্ট পহরডাঙ্গার স্মার্ট সেবা আপনার দোরগোড়ায়" 
+            <br>
+            <strong>কারিগরি সহায়তায়: আল নোমান শিকদার</strong>
+        </div>
+    </footer>
+
     <script>
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyKeavzB3qQSQuacz57ysrUtLYYliUw6w-bRLPhK8-YE7XkYtzRyvw3WBCDVHImP86Dlg/exec";
 
@@ -180,24 +251,11 @@
 
         function universalNormalize(text) {
             if (!text) return "";
-           
-                let str = text.toString().trim().normalize('NFC');
-
+            let str = text.toString().trim().normalize('NFC');
             str = str.replace(/[:ঃ.।\u09BC\u09CD]/g, '');
-
             str = str.replace(/[্যব্]/g, '');
-
             str = str.replace(/(.)\1+/g, '$1');
-
-            str = str.replace(/[শষসছচ]/g, 'X')
-                     .replace(/[জয]/g, 'J')
-                     .replace(/[রড়ঢ়]/g, 'R')
-                     .replace(/[ইঈিী]/g, 'i')
-                     .replace(/[উঊুূ]/g, 'u')
-                     .replace(/[ওো]/g, '')
-                     .replace(/ণ/g, 'ন')
-                     .replace(/\s+/g, '');
-
+            str = str.replace(/[শষসछচ]/g, 'X').replace(/[জয]/g, 'J').replace(/[রড়ঢ়]/g, 'R').replace(/[ইঈিী]/g, 'i').replace(/[উঊুূ]/g, 'u').replace(/[ওো]/g, '').replace(/ণ/g, 'ন').replace(/\s+/g, '');
             return str;
         }
 
@@ -206,43 +264,24 @@
             const w = document.getElementById('wardFilter').value;
             const g = document.getElementById('genderFilter').value;
             const d = document.getElementById('dobInput').value.trim();
-
             if(!rawQuery && !d && w === 'all') { alert("তথ্য দিন!"); return; }
-
             document.getElementById('loader').classList.remove('hidden');
             document.getElementById('btnText').innerText = "খোঁজা হচ্ছে...";
-
             try {
                 const response = await fetch(`${APPS_SCRIPT_URL}?ward=${w}&gender=${g}`);
                 const data = await response.json();
-                
                 const searchKey = universalNormalize(rawQuery);
-
                 const filtered = data.filter(v => {
                     const dbName = universalNormalize(v.name);
                     const dbParent = universalNormalize(v.parent);
                     const dbMother = universalNormalize(v.mother);
                     const dbId = v.id ? v.id.toString() : "";
-
-                    const matchText = !rawQuery || (
-                        dbName.includes(searchKey) || 
-                        dbParent.includes(searchKey) || 
-                        dbMother.includes(searchKey) || 
-                        dbId.includes(rawQuery)
-                    );
-                    
+                    const matchText = !rawQuery || (dbName.includes(searchKey) || dbParent.includes(searchKey) || dbMother.includes(searchKey) || dbId.includes(rawQuery));
                     const matchDob = !d || (v.dob && v.dob.toString().includes(d));
                     return matchText && matchDob;
                 });
-
-                if (filtered.length === 0) {
-                    alert("কোনো তথ্য পাওয়া যায়নি!");
-                } else {
-                    renderResults(filtered);
-                }
-            } catch (e) {
-                alert("নেটওয়ার্ক সমস্যা!");
-            } finally {
+                if (filtered.length === 0) { alert("কোনো তথ্য পাওয়া যায়নি!"); } else { renderResults(filtered); }
+            } catch (e) { alert("নেটওয়ার্ক সমস্যা!"); } finally {
                 document.getElementById('loader').classList.add('hidden');
                 document.getElementById('btnText').innerText = "🔍 অনুসন্ধান";
             }
@@ -252,7 +291,6 @@
             const list = document.getElementById('resultsList');
             list.innerHTML = "";
             document.getElementById('resultCount').innerHTML = `✅ ফলাফল: <span class="text-green-600">${toBN(data.length)} জন</span>`;
-            
             data.forEach(v => {
                 const div = document.createElement('div');
                 div.className = "glass-card p-4 cursor-pointer hover:shadow-xl transition-all border border-slate-100 flex justify-between items-center";
@@ -316,26 +354,23 @@
                 link.click();
             });
         }
+
         function updateLiveTime() {
-    const now = new Date();
-    
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
-    let seconds = now.getSeconds();
-    let ampm = hours >= 12 ? 'পিএম' : 'এএম';
-    hours = hours % 12 || 12;
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            let seconds = now.getSeconds();
+            let ampm = hours >= 12 ? 'পিএম' : 'এএম';
+            hours = hours % 12 || 12;
+            const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('bn-BD', options);
+            document.getElementById('liveClock').innerText = toBN(timeStr);
+            document.getElementById('liveDate').innerText = dateStr;
+        }
 
-    const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${ampm}`;
-    
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const dateStr = now.toLocaleDateString('bn-BD', options);
-
-    document.getElementById('liveClock').innerText = toBN(timeStr);
-    document.getElementById('liveDate').innerText = dateStr;
-}
-
-setInterval(updateLiveTime, 1000);
-updateLiveTime();
+        setInterval(updateLiveTime, 1000);
+        updateLiveTime();
     </script>
 </body>
 </html>
